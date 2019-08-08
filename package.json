@@ -1,5 +1,8 @@
 {
   "name": "steel-or-feathers",
+  "author": "Zichao Zang",
+  "description": "Guessing game which presents with you with two Pokémon each of a different quantity and asks you to guess which set is heavier. Keeps track of total score and percentage.",
+  "keywords": ["pokemon", "game", "react"],
   "version": "0.1.0",
   "private": true,
   "dependencies": {
