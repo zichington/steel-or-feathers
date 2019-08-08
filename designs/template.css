@@ -1,0 +1,42 @@
+body{
+  text-align: center;
+  max-width: 100%;
+}
+
+.pokemon-container{
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.pokemon-img{
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.feathers-container{
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-template-rows: auto auto auto;
+}
+
+.pokemon-btn-desciption{
+  position: absolute; 
+  bottom: 0;
+}
+
+button{
+  position: relative;
+  margin: 20px;
+  padding: 10px;
+}
+
+
+.game-container{
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.lives-hearts-container > img{
+  max-width: 20px;
+}
