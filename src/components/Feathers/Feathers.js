@@ -1,17 +1,17 @@
 import React from 'react';
 import Image from '../Image/Image';
 
-function Feathers({pkmnData}) {
-  console.log('feathersData', pkmnData)
+function Feathers({flyingData}) {
+  console.log('feathersData', flyingData)
 
   return (
     <button id="feathers-btn">
     <div className="feathers-container">
-      <Image pkmnData={pkmnData}/>
+      <Image pkmnData={flyingData}/>
     </div>
     {/* feathers description */}
     <div className="pokemon-btn-desciption">
-      <p>Ten <b>Altarias</b></p>
+    <p>One <b>{flyingData.name}</b></p>
     </div>
   </button>
   )

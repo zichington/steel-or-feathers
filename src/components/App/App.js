@@ -10,13 +10,13 @@ import Answer from '../Answer/Answer';
 
 function App() {
   const [pkmnData, setPkmnData] = useState({steel: {}, flying: {}})
-  const [flyingData, setFlyingData] = useState()
 
   useEffect(() => { 
     fetchPkmnUrl('steel')
     fetchPkmnUrl('flying')
   }, [])
 
+  // type agnostic 
   const fetchPkmnUrl = async (type) => {
     let url = `https://pokeapi.co/api/v2/type/${type}`
     console.log('pkmn requestURL:', url)
@@ -27,10 +27,10 @@ function App() {
       // choose pokemon in arr
       let choice = Math.floor(response.pokemon.length * Math.random())
       let pokemon = response.pokemon[choice].pokemon.name
-      let url2 = response.pokemon[choice].pokemon.url
+      let detailUrl = response.pokemon[choice].pokemon.url
 
-      console.log(choice, pokemon, url2)
-      fetchPkmnData(type, url2)
+      console.log(choice, pokemon, detailUrl)
+      fetchPkmnData(type, detailUrl)
 
     } catch(error) {
       console.log('error', error)
@@ -39,50 +39,35 @@ function App() {
 
   const fetchPkmnData = async (type, url) => {
     try {
-      console.log(type)
+      console.log('steel/flying type = ', type);
       let res = await fetch(url)
       let response = await res.json()
-      console.log('func2 response', response)
-
-      console.log('type = ', type);
-        let boop = {
-          name: response.name,
-          weight: response.weight,
-          image: response.sprites.front_default
-        }
-
-        console.log('State check 1: ', pkmnData)
-        setPkmnData(prevState => {return {...pkmnData, [type]: boop}} )
-        console.log('State check 2: ', pkmnData)
-
-      /*
-      if (type === 'steel') {
-        console.log('steel is true')
-        let steel = {
-          name: response.name,
-          weight: response.weight,
-          image: response.sprites.front_default
-        }
-        setPkmnData({steel: steel})
-        console.log(pkmnData)
-
-      } 
-      else if (type === 'flying') {
-        console.log('flying is true')
-
-        let feathers = {
-          name: response.name,
-          weight: response.weight,
-          image: response.sprites.front_default
-        }
-        setPkmnData({feathers: feathers})
-        console.log(pkmnData)
-
+      let result = {
+        name: response.name,
+        weight: response.weight,
+        image: response.sprites.front_default
       }
-      */
+      setPkmnData(pkmnData => {return {...pkmnData, [type]: result}} )
+
+      if (response.sprites.front_default === null) {
+        fetchFormSprite(type,response.forms[0].url) 
+      }
+
     } catch(error) {
       console.log('error', error)
     }
+  }
+
+  const fetchFormSprite = async (type, url) => {
+    try {
+      let res = await fetch(url)
+      let response = await res.json()
+      let image = response.sprites.front_default
+      setPkmnData(pkmnData => {return {...pkmnData, [type]: {...pkmnData[type], image}}} )
+    } catch(error) {
+      console.log('error', error)
+    }
+      
   }
 
   return (
@@ -92,10 +77,15 @@ function App() {
       <div className="main"> 
         <div className="pokemon-container">
           { !pkmnData.steel ? null :
-            <Steel steelData={pkmnData.steel}/>
+            <div>
+              <Steel steelData={pkmnData.steel}/>
+            </div>
+
           }
-          { !pkmnData.feathers ? null :
-            <Feathers feathersData={pkmnData.feathers}/>
+          { !pkmnData.flying ? null :
+            <div>
+              <Feathers flyingData={pkmnData.flying}/>
+            </div>
           }
         </div>
         <Answer />
