@@ -1,7 +1,7 @@
 import React from 'react';
 function Score() {
   return (
-    <div class="score-container">
+    <div className="score-container">
       <div>
         <p>Score</p>
       </div>

@@ -9,19 +9,16 @@ import Feathers from '../Feathers/Feathers';
 import Answer from '../Answer/Answer';
 
 function App() {
-  // const [feathUrl, setFeathUrl] = useState('') //?? replace
-  const [steelUrl, setSteelUrl] = useState('')
-  const [feathData, setFeathData] = useState({name: '', weight: 0, image: '' })
-  const [steelData, setSteelData] = useState({name: '', weight: 0, image: '' })
+  const [pkmnData, setPkmnData] = useState({steel: {}, feathers: {}})
 
   useEffect(() => { 
-
-    fetchSteelUrl()
+    fetchPkmnUrl('steel')
+    // fetchPkmnUrl('flying')
   }, [])
 
-  const fetchSteelUrl = async () => {
-    let url = 'https://pokeapi.co/api/v2/type/steel'
-    console.log('fetchPid requestURL:', url)
+  const fetchPkmnUrl = async (type) => {
+    let url = `https://pokeapi.co/api/v2/type/${type}`
+    console.log('pkmn requestURL:', url)
     try {
       let res = await fetch(url)
       let response = await res.json()
@@ -32,31 +29,47 @@ function App() {
       let url2 = response.pokemon[choice].pokemon.url
 
       console.log(choice, pokemon, url2)
-      fetchSteelData(url2)
+      fetchPkmnData(type, url2)
 
     } catch(error) {
       console.log('error', error)
     }
   }
 
-  const fetchSteelData = async (url) => {
+  const fetchPkmnData = async (type, url) => {
     try {
+      console.log(type)
       let res = await fetch(url)
       let response = await res.json()
-      console.log(response)
-      
-      setSteelData({
-        name: response.name,
-        weight: response.weight,
-        image: response.sprites.front_default
-      })
-      console.log(steelData)
+      console.log('func2 response', response)
+
+      if (type === 'steel') {
+        console.log('steel is true')
+        let steel = {
+          name: response.name,
+          weight: response.weight,
+          image: response.sprites.front_default
+        }
+        setPkmnData({steel: steel})
+        console.log(pkmnData)
+
+      } 
+      else if (type === 'flying') {
+        console.log('flying is true')
+
+        let feathers = {
+          name: response.name,
+          weight: response.weight,
+          image: response.sprites.front_default
+        }
+        setPkmnData({feathers: feathers})
+        console.log(pkmnData)
+
+      }
     } catch(error) {
       console.log('error', error)
     }
   }
-
-  
 
   return (
     <div className="App">
@@ -64,8 +77,12 @@ function App() {
 
       <div className="main"> 
         <div className="pokemon-container">
-          <Steel />
-          <Feathers />
+          { !pkmnData.steel ? null :
+            <Steel steelData={pkmnData.steel}/>
+          }
+          { !pkmnData.feathers ? null :
+            <Feathers feathersData={pkmnData.feathers}/>
+          }
         </div>
         <Answer />
       </div>

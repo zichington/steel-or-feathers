@@ -1,10 +1,11 @@
 import React from 'react';
 import Image from '../Image/Image';
 
-function Feathers() {
+function Feathers({feathersData}) {
+  console.log('feathersData', feathersData)
+
   return (
     <button id="feathers-btn">
-    {/* feathers images */}
     <div className="feathers-container">
       <Image /><Image /><Image />
       <Image /><Image /><Image />
