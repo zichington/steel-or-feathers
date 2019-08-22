@@ -1,16 +1,13 @@
 import React from 'react';
 import Image from '../Image/Image';
 
-function Feathers({feathersData}) {
-  console.log('feathersData', feathersData)
+function Feathers({pkmnData}) {
+  console.log('feathersData', pkmnData)
 
   return (
     <button id="feathers-btn">
     <div className="feathers-container">
-      <Image /><Image /><Image />
-      <Image /><Image /><Image />
-      <Image /><Image /><Image />
-      <Image />
+      <Image pkmnData={pkmnData}/>
     </div>
     {/* feathers description */}
     <div className="pokemon-btn-desciption">

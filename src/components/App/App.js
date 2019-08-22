@@ -9,11 +9,12 @@ import Feathers from '../Feathers/Feathers';
 import Answer from '../Answer/Answer';
 
 function App() {
-  const [pkmnData, setPkmnData] = useState({steel: {}, feathers: {}})
+  const [pkmnData, setPkmnData] = useState({steel: {}, flying: {}})
+  const [flyingData, setFlyingData] = useState()
 
   useEffect(() => { 
     fetchPkmnUrl('steel')
-    // fetchPkmnUrl('flying')
+    fetchPkmnUrl('flying')
   }, [])
 
   const fetchPkmnUrl = async (type) => {
@@ -43,6 +44,18 @@ function App() {
       let response = await res.json()
       console.log('func2 response', response)
 
+      console.log('type = ', type);
+        let boop = {
+          name: response.name,
+          weight: response.weight,
+          image: response.sprites.front_default
+        }
+
+        console.log('State check 1: ', pkmnData)
+        setPkmnData(prevState => {return {...pkmnData, [type]: boop}} )
+        console.log('State check 2: ', pkmnData)
+
+      /*
       if (type === 'steel') {
         console.log('steel is true')
         let steel = {
@@ -66,6 +79,7 @@ function App() {
         console.log(pkmnData)
 
       }
+      */
     } catch(error) {
       console.log('error', error)
     }
