@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
 import Title from '../Title/Title';
 import Score from '../Score/Score';
 import Lives from '../Lives/Lives';
@@ -7,6 +6,7 @@ import Footer from '../Footer/Footer';
 import Steel from '../Steel/Steel';
 import Feathers from '../Feathers/Feathers';
 import Answer from '../Answer/Answer';
+import './App.css';
 
 function App() {
   // fetch and setup
@@ -16,6 +16,7 @@ function App() {
 
   // game logic
   const [gameRound, setGameRound] = useState(0)
+  const [showAnswer, setShowAnswer] = useState('hidden')
 
   useEffect(() => { 
     decideWinner()
@@ -105,16 +106,16 @@ function App() {
         <div className="pokemon-container">
           { !pkmnData.steel ? null :
             <div>
-              <Steel steelData={pkmnData.steel} winner={winner}/>
+              <Steel steelData={pkmnData.steel} setShowAnswer={setShowAnswer}/>
             </div>
           }
           { !pkmnData.flying ? null :
             <div>
-              <Feathers flyingData={pkmnData.flying} winner={winner} flyingDivs={flyingDivs}/>
+              <Feathers flyingData={pkmnData.flying} flyingDivs={flyingDivs} setShowAnswer={setShowAnswer}/>
             </div>
           }
         </div>
-        <Answer pkmnData={pkmnData} setGameRound={setGameRound}/>
+        <Answer pkmnData={pkmnData} setGameRound={setGameRound} showAnswer={showAnswer} setShowAnswer={setShowAnswer}/>
       </div>
 
       <div className="game-container">
