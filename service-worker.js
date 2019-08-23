@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/steel-or-feathers/precache-manifest.6edd8c26214612bfa60ec512d168265a.js"
+  "/steel-or-feathers/precache-manifest.8f54fe86a564c70172ec4dd17da23fb3.js"
 );
 
 self.addEventListener('message', (event) => {
