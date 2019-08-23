@@ -1,7 +1,7 @@
 import React from 'react';
-function Image() {
+function Image({pkmnData}) {
   return (
-    <img class="pokemon-img" src="https://cdn.bulbagarden.net/upload/d/da/334Altaria.png" alt="" />
+    <img className="pokemon-img" src={pkmnData.image} alt="" />
   )
 }
 

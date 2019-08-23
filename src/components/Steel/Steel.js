@@ -1,14 +1,13 @@
 import React from 'react';
-function Steel() {
+function Steel({steelData, setShowAnswer}) {
+  const showAnswer = () => {
+    setShowAnswer(' ')
+  }
   return (
-    <button id="steel-btn">
-    {/* steel image */}
-    <img className="pokemon-img" src="https://cdn.bulbagarden.net/upload/thumb/9/9a/095Onix.png/1200px-095Onix.png"
-      alt="" />
-
-    {/* steel description  */}
+    <button id="steel-btn" onClick={showAnswer}>
+    <img className="pokemon-img" src={steelData.image} alt=""/>
     <div className="pokemon-btn-desciption">
-      <p>One <b>Onix</b></p>
+      <p>One <b>{steelData.name}</b></p>
     </div>
   </button>
   )
