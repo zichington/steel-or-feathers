@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/steel-or-feathers/static/css/main.459d4c51.chunk.css",
+    "main.js": "/steel-or-feathers/static/js/main.a899469f.chunk.js",
+    "main.js.map": "/steel-or-feathers/static/js/main.a899469f.chunk.js.map",
+    "runtime~main.js": "/steel-or-feathers/static/js/runtime~main.8f7947f5.js",
+    "runtime~main.js.map": "/steel-or-feathers/static/js/runtime~main.8f7947f5.js.map",
+    "static/js/2.85d295a8.chunk.js": "/steel-or-feathers/static/js/2.85d295a8.chunk.js",
+    "static/js/2.85d295a8.chunk.js.map": "/steel-or-feathers/static/js/2.85d295a8.chunk.js.map",
+    "index.html": "/steel-or-feathers/index.html",
+    "precache-manifest.6edd8c26214612bfa60ec512d168265a.js": "/steel-or-feathers/precache-manifest.6edd8c26214612bfa60ec512d168265a.js",
+    "service-worker.js": "/steel-or-feathers/service-worker.js",
+    "static/css/main.459d4c51.chunk.css.map": "/steel-or-feathers/static/css/main.459d4c51.chunk.css.map"
+  }
+}
