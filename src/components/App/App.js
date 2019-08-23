@@ -10,11 +10,25 @@ import Answer from '../Answer/Answer';
 
 function App() {
   const [pkmnData, setPkmnData] = useState({steel: {}, flying: {}})
+  // const [imgData, setImgData] = useState({steel: 1, flying: 1})
+  const [flyingDivs, setFlyingDivs] = useState(0)
+  const [winner, setWinner] = useState(0) // +1 for steel losing, -1 for steel winning
 
   useEffect(() => { 
+    decideWinner()
     fetchPkmnUrl('steel')
     fetchPkmnUrl('flying')
+    calculateImgs()
   }, [])
+
+  const decideWinner = () => {
+    let winner = (Math.floor(Math.random() * 2) === 0) ? 'steel' : 'flying'
+    setWinner(winner)
+  }
+
+  const fetchAllPkmnData = async () => {
+
+  }
 
   // type agnostic 
   const fetchPkmnUrl = async (type) => {
@@ -53,6 +67,10 @@ function App() {
         fetchFormSprite(type,response.forms[0].url) 
       }
 
+      if (response.weight === null) {
+        alert('issue fetching weight', )
+      }
+
     } catch(error) {
       console.log('error', error)
     }
@@ -70,6 +88,21 @@ function App() {
       
   }
 
+  const calculateImgs = () => {
+    let steelWeight = pkmnData.steel.weight
+    let flyingWeight = pkmnData.flying.weight
+
+    if (steelWeight >= flyingWeight) { // handle normal winning logic
+      // calculation to get total number of featherDivs
+      let flyingDivs = Math.floor(pkmnData.steel.weight / pkmnData.feathers.weight) + winner
+      setFlyingDivs(flyingDivs)
+    } else if (flyingWeight > steelWeight) {
+      console.warn('write logic for this case')
+    } else {
+      console.log('big error')
+    }
+  }
+
   return (
     <div className="App">
       <Title />
@@ -78,13 +111,13 @@ function App() {
         <div className="pokemon-container">
           { !pkmnData.steel ? null :
             <div>
-              <Steel steelData={pkmnData.steel}/>
+              <Steel steelData={pkmnData.steel} winner={winner}/>
             </div>
 
           }
           { !pkmnData.flying ? null :
             <div>
-              <Feathers flyingData={pkmnData.flying}/>
+              <Feathers flyingData={pkmnData.flying} winner={winner}/>
             </div>
           }
         </div>

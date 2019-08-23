@@ -1,5 +1,5 @@
 import React from 'react';
-function Steel({steelData}) {
+function Steel({steelData, winner}) {
   console.log('steelData', steelData)
 
   return (
