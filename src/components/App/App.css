@@ -44,9 +44,10 @@ button{
 
 
 /* interactivity */
-.answer{
+
+/* .answer{
   visibility: hidden;
-}
+} */
 
 .false{
   background-color: lightcoral;

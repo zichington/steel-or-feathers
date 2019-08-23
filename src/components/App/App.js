@@ -9,19 +9,21 @@ import Feathers from '../Feathers/Feathers';
 import Answer from '../Answer/Answer';
 
 function App() {
+  // fetch and setup
   const [pkmnData, setPkmnData] = useState({steel: {}, flying: {}})
   const [flyingDivs, setFlyingDivs] = useState(0)
   const [winner, setWinner] = useState(0) // +1 for steel losing, -1 for steel winning
+
+  // game logic
+  const [gameRound, setGameRound] = useState(0)
 
   useEffect(() => { 
     decideWinner()
     fetchPkmnUrl('steel')
     fetchPkmnUrl('flying')
-  }, [])
+  }, [gameRound])
 
-  useEffect(() => {
-    calculateImgs()
-  }, [pkmnData])
+  useEffect(() => { calculateImgs() }, [pkmnData])
 
   const decideWinner = () => {
     let winner = (Math.floor(Math.random() * 2) === 0) ? -1 : +1
@@ -35,15 +37,12 @@ function App() {
     try {
       let res = await fetch(url)
       let response = await res.json()
-      
       // choose pokemon in arr
       let choice = Math.floor(response.pokemon.length * Math.random())
       let pokemon = response.pokemon[choice].pokemon.name
       let detailUrl = response.pokemon[choice].pokemon.url
-
       console.log(choice, pokemon, detailUrl)
       fetchPkmnData(type, detailUrl)
-
     } catch(error) {
       console.log('error', error)
     }
@@ -51,7 +50,6 @@ function App() {
 
   const fetchPkmnData = async (type, url) => {
     try {
-      console.log('steel/flying type = ', type);
       let res = await fetch(url)
       let response = await res.json()
       let result = {
@@ -64,11 +62,9 @@ function App() {
       if (response.sprites.front_default === null) {
         fetchFormSprite(type,response.forms[0].url) 
       }
-
       if (response.weight === null) {
         alert('issue fetching weight', )
       }
-
     } catch(error) {
       console.log('error', error)
     }
@@ -90,13 +86,11 @@ function App() {
     let flyingWeight = pkmnData.flying.weight
 
     if (steelWeight >= flyingWeight) { // handle normal winning logic
-      // calculation to get total number of featherDivs
-      console.log('CalculateImgs: this is being fired')
       let flyingDivs = Math.floor(pkmnData.steel.weight / pkmnData.flying.weight) + winner
       setFlyingDivs(flyingDivs)
       
-    } else if (flyingWeight > steelWeight) {
-      console.warn('write logic for this case')
+    } else if (flyingWeight > steelWeight) { // handle other logic
+      console.warn('warning: flyingweight > steelweight: write logic for this case')
       setFlyingDivs(1)
     } else {
       console.log('big error')
@@ -113,7 +107,6 @@ function App() {
             <div>
               <Steel steelData={pkmnData.steel} winner={winner}/>
             </div>
-
           }
           { !pkmnData.flying ? null :
             <div>
@@ -121,7 +114,7 @@ function App() {
             </div>
           }
         </div>
-        <Answer />
+        <Answer pkmnData={pkmnData} setGameRound={setGameRound}/>
       </div>
 
       <div className="game-container">
