@@ -10,7 +10,6 @@ import Answer from '../Answer/Answer';
 
 function App() {
   const [pkmnData, setPkmnData] = useState({steel: {}, flying: {}})
-  // const [imgData, setImgData] = useState({steel: 1, flying: 1})
   const [flyingDivs, setFlyingDivs] = useState(0)
   const [winner, setWinner] = useState(0) // +1 for steel losing, -1 for steel winning
 
@@ -18,16 +17,15 @@ function App() {
     decideWinner()
     fetchPkmnUrl('steel')
     fetchPkmnUrl('flying')
-    calculateImgs()
   }, [])
 
+  useEffect(() => {
+    calculateImgs()
+  }, [pkmnData])
+
   const decideWinner = () => {
-    let winner = (Math.floor(Math.random() * 2) === 0) ? 'steel' : 'flying'
+    let winner = (Math.floor(Math.random() * 2) === 0) ? -1 : +1
     setWinner(winner)
-  }
-
-  const fetchAllPkmnData = async () => {
-
   }
 
   // type agnostic 
@@ -85,7 +83,6 @@ function App() {
     } catch(error) {
       console.log('error', error)
     }
-      
   }
 
   const calculateImgs = () => {
@@ -94,10 +91,13 @@ function App() {
 
     if (steelWeight >= flyingWeight) { // handle normal winning logic
       // calculation to get total number of featherDivs
-      let flyingDivs = Math.floor(pkmnData.steel.weight / pkmnData.feathers.weight) + winner
+      console.log('CalculateImgs: this is being fired')
+      let flyingDivs = Math.floor(pkmnData.steel.weight / pkmnData.flying.weight) + winner
       setFlyingDivs(flyingDivs)
+      
     } else if (flyingWeight > steelWeight) {
       console.warn('write logic for this case')
+      setFlyingDivs(1)
     } else {
       console.log('big error')
     }
@@ -117,7 +117,7 @@ function App() {
           }
           { !pkmnData.flying ? null :
             <div>
-              <Feathers flyingData={pkmnData.flying} winner={winner}/>
+              <Feathers flyingData={pkmnData.flying} winner={winner} flyingDivs={flyingDivs}/>
             </div>
           }
         </div>
