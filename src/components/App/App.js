@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Title from '../Title/Title';
 import Score from '../Score/Score';
 import Lives from '../Lives/Lives';
@@ -14,8 +14,8 @@ function App() {
   const [flyingData, setFlyingData] = useState({type: 'flying'})
 
   // game logic
-  const [gameRound, setGameRound] = useState(0)
   const [showAnswer, setShowAnswer] = useState('hidden')
+  const [gameRound, setGameRound] = useState(0)
 
   useEffect(() => { 
     decideWinner()
@@ -58,7 +58,7 @@ function App() {
         weight: response.weight,
         image: response.sprites.front_default
       }
-      
+
       type === 'steel' ? 
       setSteelData(steelData => ({...steelData, ...result})) :
       setFlyingData(flyingData => ({...flyingData, ...result}))
@@ -123,6 +123,9 @@ function App() {
             <div>
               <Pokemon 
                 data={steelData}
+                btnStyling={btnStyling}
+                setBtnStyling={setBtnStyling}
+
                 setShowAnswer={setShowAnswer}
                 setFlyingData={setFlyingData}
                 setSteelData={setSteelData}

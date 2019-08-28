@@ -8,13 +8,14 @@ function Pokemon({data, setFlyingData, setSteelData, winner, setShowAnswer}) {
   const addBtnStyling = () => {
     let red = {display: 'red'}
     let green = {display: 'green'}
-    
+
+    // winning and losing styling
     if (winner === -1) {
-      setFlyingData(flyingData => ({...flyingData, ...red}))
+      if (data.type === 'flying') setFlyingData(flyingData => ({...flyingData, ...red}))
       setSteelData(steelData => ({...steelData, ...green}))
     } else if (winner === 1) {
+      if (data.type === 'steel') setSteelData(steelData => ({...steelData, ...red}))
       setFlyingData(flyingData => ({...flyingData, ...green}))
-      setSteelData(steelData => ({...steelData, ...red}) )
     }
   }
 
