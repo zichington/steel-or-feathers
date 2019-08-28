@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/steel-or-feathers/static/css/main.10fd0323.chunk.css",
-    "main.js": "/steel-or-feathers/static/js/main.97d46542.chunk.js",
-    "main.js.map": "/steel-or-feathers/static/js/main.97d46542.chunk.js.map",
+    "main.js": "/steel-or-feathers/static/js/main.27c28ad6.chunk.js",
+    "main.js.map": "/steel-or-feathers/static/js/main.27c28ad6.chunk.js.map",
     "runtime~main.js": "/steel-or-feathers/static/js/runtime~main.8f7947f5.js",
     "runtime~main.js.map": "/steel-or-feathers/static/js/runtime~main.8f7947f5.js.map",
     "static/js/2.adaf9e7f.chunk.js": "/steel-or-feathers/static/js/2.adaf9e7f.chunk.js",
     "static/js/2.adaf9e7f.chunk.js.map": "/steel-or-feathers/static/js/2.adaf9e7f.chunk.js.map",
     "index.html": "/steel-or-feathers/index.html",
-    "precache-manifest.94cbf05421c66aacf6d15d8b403c8301.js": "/steel-or-feathers/precache-manifest.94cbf05421c66aacf6d15d8b403c8301.js",
+    "precache-manifest.9b1abc118d9046a4b1b4fb4b7ba4f28a.js": "/steel-or-feathers/precache-manifest.9b1abc118d9046a4b1b4fb4b7ba4f28a.js",
     "service-worker.js": "/steel-or-feathers/service-worker.js",
     "static/css/main.10fd0323.chunk.css.map": "/steel-or-feathers/static/css/main.10fd0323.chunk.css.map"
   }

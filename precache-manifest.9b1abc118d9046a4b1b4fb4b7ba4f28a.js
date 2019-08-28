@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f768ef42aca793dadfcac52059fe5529",
+    "revision": "da3465f6663023f0b9274543b6fbc3cc",
     "url": "/steel-or-feathers/index.html"
   },
   {
-    "revision": "0d1b599449b21ec23e0c",
+    "revision": "fd25a0eabf3a83708d2a",
     "url": "/steel-or-feathers/static/css/main.10fd0323.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/steel-or-feathers/static/js/2.adaf9e7f.chunk.js"
   },
   {
-    "revision": "0d1b599449b21ec23e0c",
-    "url": "/steel-or-feathers/static/js/main.97d46542.chunk.js"
+    "revision": "fd25a0eabf3a83708d2a",
+    "url": "/steel-or-feathers/static/js/main.27c28ad6.chunk.js"
   },
   {
     "revision": "2ffb9092e7d5d35e003a",
