@@ -30,6 +30,8 @@ button{
   position: relative;
   margin: 20px;
   padding: 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 /* game container */
@@ -48,22 +50,6 @@ button{
 .hidden{
   visibility: hidden;
 }
-
-.false{
-  background-color: lightcoral;
-}
-
-.true{
-  background-color: lightgreen;
-}
-
-/* .heavy{
-  margin-top: 50px;
-}
-
-.light{
-  margin-bottom: 30px;
-} */
 
 .visible{
   visibility: visible;

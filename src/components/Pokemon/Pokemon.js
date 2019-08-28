@@ -1,11 +1,26 @@
 import React, { useState, useEffect }  from 'react';
 import Image from '../Image/Image';
+import './Pokemon.css'
 
-function Pokemon({data, setShowAnswer}) {
+function Pokemon({data, setFlyingData, setSteelData, winner, setShowAnswer}) {
   const [dispFlyDivs, setDispFlyDivs] = useState(0)
   
-  const runShowAnswer = () => {
+  const addBtnStyling = () => {
+    let red = {display: 'red'}
+    let green = {display: 'green'}
+    
+    if (winner === -1) {
+      setFlyingData(flyingData => ({...flyingData, ...red}))
+      setSteelData(steelData => ({...steelData, ...green}))
+    } else if (winner === 1) {
+      setFlyingData(flyingData => ({...flyingData, ...green}))
+      setSteelData(steelData => ({...steelData, ...red}) )
+    }
+  }
+
+  const handleShowAnswer = () => {
     setShowAnswer(' ')
+    addBtnStyling()
   }
 
   // generate css for feathers styling
@@ -19,12 +34,13 @@ function Pokemon({data, setShowAnswer}) {
     // console.log("computing styles: cols", cols)
 
   }
+
   useEffect(() => {
     computeStyle()
   })
 
   return (
-    <button id="feathers-btn" onClick={runShowAnswer}>
+    <button id="pkmn-btn" onClick={handleShowAnswer} className={data.display}>
     <div className={`feathers-container`} >
       {
         Array.from(Array(dispFlyDivs)).map((x, index) => 
@@ -39,7 +55,6 @@ function Pokemon({data, setShowAnswer}) {
       }
     </div>
 
-    {/* feathers description */}
     <div className="pokemon-btn-desciption">
     <p>{data.divs === 1 ? 'One' : data.divs } <b>{data.name}</b></p>
     </div>

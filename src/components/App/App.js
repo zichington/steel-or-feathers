@@ -9,20 +9,9 @@ import './App.css';
 
 function App() {
   // fetch and setup & display
-  const [steelData, setSteelData] = useState({})
-  const [flyingData, setFlyingData] = useState({})
-
-  /*
-  steelData / flyingData : {
-    name: '',
-    weight: 0,
-    image: ''
-    divs: ''
-    display: '' / 'losing' : 'winning'
-  }
-  */
-
-  const [winner, setWinner] = useState(0) // +1 for steel losing, -1 for steel winning
+  const [winner, setWinner] = useState(0) // -1 for steel winning, +1 for steel losing
+  const [steelData, setSteelData] = useState({type: 'steel'})
+  const [flyingData, setFlyingData] = useState({type: 'flying'})
 
   // game logic
   const [gameRound, setGameRound] = useState(0)
@@ -34,7 +23,9 @@ function App() {
     fetchPkmnUrl('flying')
   }, [gameRound])
 
-  useEffect(() => { calculateImgs() }, [steelData.weight, flyingData.weight])
+  useEffect(() => { 
+    calculateImgs() 
+    }, [steelData.weight, flyingData.weight])
 
   const decideWinner = () => {
     let winner = (Math.floor(Math.random() * 2) === 0) ? -1 : +1
@@ -67,7 +58,10 @@ function App() {
         weight: response.weight,
         image: response.sprites.front_default
       }
-      type === 'steel' ? setSteelData(result) : setFlyingData(result)
+      
+      type === 'steel' ? 
+      setSteelData(steelData => ({...steelData, ...result})) :
+      setFlyingData(flyingData => ({...flyingData, ...result}))
 
       if (response.sprites.front_default === null) {
         fetchFormSprite(type, response.forms[0].url) 
@@ -84,8 +78,8 @@ function App() {
       let image = response.sprites.front_default
 
       type === 'steel' ? 
-      setSteelData(steelData => {return {...steelData, image}}) : 
-      setFlyingData(flyingData => {return {...flyingData, image}})
+      setSteelData(steelData => ({...steelData, image})) : 
+      setFlyingData(flyingData => ({...flyingData, image}))
 
     } catch(error) {
       console.log('error', error)
@@ -95,24 +89,24 @@ function App() {
   const calculateImgs = () => {
     let steelWeight = steelData.weight
     let flyingWeight = flyingData.weight
-
-
-    // BUG: if answer is 1.x and rounds down and reduces 1, the answer is 0
+   
     if (steelWeight >= flyingWeight) { // handle normal winning logic
       // current case only deals with single digit +/- 1-20
       let divs = Math.floor(steelWeight / flyingWeight) + winner
-      if (divs === 0) { divs++}
+      if (divs === 0) { divs++ }  // BUG: if answer is 1.x and rounds down and reduces 1, the answer is 0
+
+
       // add more logic: 
         // if ratio is > 1:20, round up/down by +/- 5 
         // if ratio is > 1:50, round up/down by +/- 10 
         // if ratio is > 1:100, round up/down by +/- 25 
         // if ratio is > 1:150, round up/down by +/- 50
-      setSteelData(steelData => {return {...steelData, divs: 1}})
-      setFlyingData(flyingData => {return {...flyingData, divs}})
+      setSteelData(steelData => ({...steelData, divs: 1}))
+      setFlyingData(flyingData => ({...flyingData, divs}))
       
     } else if (flyingWeight > steelWeight) {
       console.warn('warning: flyingweight > steelweight: write logic for this case')
-      setFlyingData(flyingData => {return {...flyingData, divs: 1}})
+      setFlyingData(flyingData => ({...flyingData, divs: 1}))
     } else {
       console.log('big error')
     }
@@ -121,7 +115,6 @@ function App() {
   return (
     <div className="App">
       <Title />
-
       <div className="main"> 
         <div className="pokemon-container">
 
@@ -129,8 +122,11 @@ function App() {
             !steelData ? null :
             <div>
               <Pokemon 
-                data={steelData} 
+                data={steelData}
                 setShowAnswer={setShowAnswer}
+                setFlyingData={setFlyingData}
+                setSteelData={setSteelData}
+                winner={winner}
               />
             </div>
           }
@@ -139,8 +135,11 @@ function App() {
             !flyingData ? null :
             <div>
               <Pokemon 
-                data={flyingData} 
+                data={flyingData}
                 setShowAnswer={setShowAnswer}
+                setFlyingData={setFlyingData}
+                setSteelData={setSteelData}
+                winner={winner}
               />
             </div>
           }
@@ -150,6 +149,8 @@ function App() {
         <Answer 
           steelData={steelData} 
           flyingData={flyingData} 
+          setFlyingData={setFlyingData}
+          setSteelData={setSteelData}
           setGameRound={setGameRound} 
           showAnswer={showAnswer} 
           setShowAnswer={setShowAnswer}
@@ -158,7 +159,7 @@ function App() {
       </div>
 
       <div className="game-container">
-        <Score />
+        <Score gameRound={gameRound}/>
         <Lives />
       </div>
 
@@ -168,3 +169,4 @@ function App() {
 }
 
 export default App;
+
