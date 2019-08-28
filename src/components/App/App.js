@@ -123,9 +123,6 @@ function App() {
             <div>
               <Pokemon 
                 data={steelData}
-                btnStyling={btnStyling}
-                setBtnStyling={setBtnStyling}
-
                 setShowAnswer={setShowAnswer}
                 setFlyingData={setFlyingData}
                 setSteelData={setSteelData}
