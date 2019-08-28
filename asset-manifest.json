@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/steel-or-feathers/static/css/main.f7787d3d.chunk.css",
-    "main.js": "/steel-or-feathers/static/js/main.83265fde.chunk.js",
-    "main.js.map": "/steel-or-feathers/static/js/main.83265fde.chunk.js.map",
+    "main.css": "/steel-or-feathers/static/css/main.10fd0323.chunk.css",
+    "main.js": "/steel-or-feathers/static/js/main.97d46542.chunk.js",
+    "main.js.map": "/steel-or-feathers/static/js/main.97d46542.chunk.js.map",
     "runtime~main.js": "/steel-or-feathers/static/js/runtime~main.8f7947f5.js",
     "runtime~main.js.map": "/steel-or-feathers/static/js/runtime~main.8f7947f5.js.map",
-    "static/js/2.0f442a96.chunk.js": "/steel-or-feathers/static/js/2.0f442a96.chunk.js",
-    "static/js/2.0f442a96.chunk.js.map": "/steel-or-feathers/static/js/2.0f442a96.chunk.js.map",
+    "static/js/2.adaf9e7f.chunk.js": "/steel-or-feathers/static/js/2.adaf9e7f.chunk.js",
+    "static/js/2.adaf9e7f.chunk.js.map": "/steel-or-feathers/static/js/2.adaf9e7f.chunk.js.map",
     "index.html": "/steel-or-feathers/index.html",
-    "precache-manifest.8f54fe86a564c70172ec4dd17da23fb3.js": "/steel-or-feathers/precache-manifest.8f54fe86a564c70172ec4dd17da23fb3.js",
+    "precache-manifest.94cbf05421c66aacf6d15d8b403c8301.js": "/steel-or-feathers/precache-manifest.94cbf05421c66aacf6d15d8b403c8301.js",
     "service-worker.js": "/steel-or-feathers/service-worker.js",
-    "static/css/main.f7787d3d.chunk.css.map": "/steel-or-feathers/static/css/main.f7787d3d.chunk.css.map"
+    "static/css/main.10fd0323.chunk.css.map": "/steel-or-feathers/static/css/main.10fd0323.chunk.css.map"
   }
 }
