@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import Title from '../Title/Title';
 import Score from '../Score/Score';
 import Lives from '../Lives/Lives';
@@ -9,13 +9,15 @@ import './App.css';
 
 function App() {
   // fetch and setup & display
-  const [winner, setWinner] = useState(0) // -1 for steel winning, +1 for steel losing
-  const [steelData, setSteelData] = useState({type: 'steel'})
-  const [flyingData, setFlyingData] = useState({type: 'flying'})
+  const [winner, setWinner] = useState(0) // -1 for steel winning/ +1 for steel losing
+  const [steelData, setSteelData] = useState({type: 'steel', display: ' '})
+  const [flyingData, setFlyingData] = useState({type: 'flying', display: ' '})
 
   // game logic
   const [showAnswer, setShowAnswer] = useState('hidden')
   const [gameRound, setGameRound] = useState(0)
+  const [points, setPoints] = useState(0)
+  const [history, setHistory] = useState([])
 
   useEffect(() => { 
     decideWinner()
@@ -89,26 +91,61 @@ function App() {
   const calculateImgs = () => {
     let steelWeight = steelData.weight
     let flyingWeight = flyingData.weight
-   
-    if (steelWeight >= flyingWeight) { // handle normal winning logic
-      // current case only deals with single digit +/- 1-20
-      let divs = Math.floor(steelWeight / flyingWeight) + winner
-      if (divs === 0) { divs++ }  // BUG: if answer is 1.x and rounds down and reduces 1, the answer is 0
 
+    const round = (divs, divisor, winner) => {
+      if (winner === -1) {
+        return Math.floor((divs + winner)/divisor)*divisor 
+      } else if (winner === 1) {
+        return Math.ceil((divs + winner)/divisor)*divisor
+      } else {
+        console.log('ERROR, CHECK WINNER VALUE')
+      }
+    }
 
-      // add more logic: 
-        // if ratio is > 1:20, round up/down by +/- 5 
-        // if ratio is > 1:50, round up/down by +/- 10 
-        // if ratio is > 1:100, round up/down by +/- 25 
-        // if ratio is > 1:150, round up/down by +/- 50
+    if (steelWeight > flyingWeight) { 
+      let divs = steelWeight / flyingWeight
+      console.log("WINNING ROUNDING IS", winner)
+      console.log('divs before', divs)
+      switch (true) {
+        case (divs <= 9):  
+          divs = Math.ceil(divs + winner)
+          break; 
+        case (divs <= 50):
+          divs = round(divs, 5, winner)
+          break;
+        case (divs <= 100):
+          divs = round(divs, 10, winner)
+          break;
+        case (divs <= 200):
+          divs = round(divs, 10, winner)
+          break;
+        case (divs <= 250):
+          divs = round(divs, 25, winner)
+          break;
+        case (divs <= 500):
+          divs = round(divs, 50, winner)
+          break;
+        case (divs <= 1000):
+          divs = round(divs, 100, winner)
+          break;
+        case (divs <= 2000):
+          divs = round(divs, 250, winner)
+          break;
+        case (divs > 2000):
+          divs = round(divs, 500, winner)
+          break;
+      }
+
+      console.log('divs after', divs)
       setSteelData(steelData => ({...steelData, divs: 1}))
       setFlyingData(flyingData => ({...flyingData, divs}))
       
     } else if (flyingWeight > steelWeight) {
       console.warn('warning: flyingweight > steelweight: write logic for this case')
       setFlyingData(flyingData => ({...flyingData, divs: 1}))
+      setSteelData(steelData => ({...steelData, divs: 1}))
     } else {
-      console.log('big error')
+      console.log('big error/no weights fetched yet during this render')
     }
   }
 
@@ -154,6 +191,7 @@ function App() {
           setGameRound={setGameRound} 
           showAnswer={showAnswer} 
           setShowAnswer={setShowAnswer}
+          setHistory={setHistory}
         />
 
       </div>
@@ -161,6 +199,17 @@ function App() {
       <div className="game-container">
         <Score gameRound={gameRound}/>
         <Lives />
+      </div>
+
+      <div className="history-container">
+        {
+          history.map((el, i) => (
+            <div key={i}>
+              <p>{el.name}</p>
+              <p>weight: {el.weight}</p>
+            </div>
+          )) 
+        }
       </div>
 
       <Footer />

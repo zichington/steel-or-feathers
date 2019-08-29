@@ -3,7 +3,7 @@ import Image from '../Image/Image';
 import './Pokemon.css'
 
 function Pokemon({data, setFlyingData, setSteelData, winner, setShowAnswer}) {
-  const [dispFlyDivs, setDispFlyDivs] = useState(0)
+  const [dispDivs, setDispDivs] = useState(0)
   
   const addBtnStyling = () => {
     let red = {display: 'red'}
@@ -28,8 +28,7 @@ function Pokemon({data, setFlyingData, setSteelData, winner, setShowAnswer}) {
   const computeStyle = () => {
     // TEMP
     let show = data.divs === null ? 1 : data.divs < 17 ? data.divs : 15
-    setDispFlyDivs(show)
-
+    setDispDivs(show)
     // polished version with column styling
     // let cols = Math.ceil(Math.sqrt(flyingDivs))
     // console.log("computing styles: cols", cols)
@@ -41,15 +40,16 @@ function Pokemon({data, setFlyingData, setSteelData, winner, setShowAnswer}) {
   })
 
   return (
-    <button id="pkmn-btn" onClick={handleShowAnswer} className={data.display}>
+    <button id="pkmn-btn" onClick={handleShowAnswer} className={data.display} >
     <div className={`feathers-container`} >
       {
-        Array.from(Array(dispFlyDivs)).map((x, index) => 
-          <Image key={index} pkmnData={data}/>
+        !dispDivs ? null :
+        Array.from(Array(dispDivs)).map((x, index) => 
+          <Image key={index} data={data}/>
         )  
       }
 
-      { dispFlyDivs !== 15 ? null :
+      { dispDivs !== 15 ? null :
         <div>
           <p>...</p>
         </div>

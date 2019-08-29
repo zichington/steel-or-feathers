@@ -5,3 +5,7 @@
 .green{
   background-color: lightgreen;
 }
+
+button:disabled {
+  color: black;
+}

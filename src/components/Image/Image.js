@@ -1,7 +1,7 @@
 import React from 'react';
-function Image({pkmnData}) {
+function Image({data}) {
   return (
-    <img className="pokemon-img" src={pkmnData.image} alt="" />
+    <img className="pokemon-img" src={data.image} alt="" />
   )
 }
 
